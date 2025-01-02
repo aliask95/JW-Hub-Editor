@@ -4,21 +4,27 @@ function execCmd(command, value = null) {
   updateOutput();
 }
 
-// Generate table in editor
+// Generate table in Wiki Text Markup format
 function generateTable() {
-  const rows = prompt('Enter the number of rows:', 2);
-  const cols = prompt('Enter the number of columns:', 2);
+  const rows = prompt('Enter the number of rows (including the header row):', 3);
+  const cols = prompt('Enter the number of columns:', 3);
+
   if (rows && cols) {
-    let table = '<table border="1" style="border-collapse: collapse; width: 100%;">';
-    for (let i = 0; i < rows; i++) {
-      table += '<tr>';
-      for (let j = 0; j < cols; j++) {
-        table += '<td>&nbsp;</td>';
-      }
-      table += '</tr>';
+    let table = '||';
+    for (let j = 0; j < cols; j++) {
+      table += `Column ${j + 1}[attr: width="15%" style="text-align: center;"] ||`;
     }
-    table += '</table>';
-    document.execCommand('insertHTML', false, table);
+    table += '\n';
+
+    for (let i = 1; i < rows; i++) {
+      table += '||';
+      for (let j = 0; j < cols; j++) {
+        table += `Row ${i} Col ${j + 1} ||`;
+      }
+      table += '\n';
+    }
+
+    document.execCommand('insertHTML', false, `<pre>${table}</pre>`);
     updateOutput();
   }
 }
@@ -52,11 +58,11 @@ function convertToWikiMarkup(html) {
   });
 
   // Convert tables to wiki markup
-  markup = markup.replace(/<table.*?>/g, "{|");
-  markup = markup.replace(/<\/table>/g, "|}");
-  markup = markup.replace(/<tr>/g, "|-");
+  markup = markup.replace(/<table.*?>/g, "||");
+  markup = markup.replace(/<\/table>/g, "");
+  markup = markup.replace(/<tr>/g, "||");
   markup = markup.replace(/<\/tr>/g, "");
-  markup = markup.replace(/<td>(.*?)<\/td>/g, "| $1");
+  markup = markup.replace(/<td>(.*?)<\/td>/g, "| $1 ||");
 
   // Remove any remaining HTML tags
   markup = markup.replace(/<.*?>/g, "");
