@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WYSIWYG Editor</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Simple WYSIWYG Editor</h1>
+  <div id="editor" contenteditable="true">
+    Start typing here...
+  </div>
+  <div class="toolbar">
+    <button onclick="formatText('bold')">Bold</button>
+    <button onclick="formatText('italic')">Italic</button>
+    <button onclick="formatText('underline')">Underline</button>
+    <button onclick="formatText('strikeThrough')">Strike</button>
+    <button onclick="formatText('insertOrderedList')">Numbered List</button>
+    <button onclick="formatText('insertUnorderedList')">Bulleted List</button>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
