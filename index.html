@@ -10,9 +10,9 @@
       margin: 20px;
     }
     #toolbar {
-      margin-bottom: 10px;
       display: flex;
       gap: 5px;
+      margin-bottom: 10px;
     }
     #toolbar button {
       background-color: #007bff;
@@ -29,8 +29,8 @@
       border: 1px solid #ccc;
       padding: 10px;
       min-height: 300px;
-      margin-bottom: 10px;
       overflow-y: auto;
+      margin-bottom: 10px;
     }
     textarea {
       width: 100%;
@@ -43,6 +43,9 @@
 <body>
   <h1>JW Hub Editor</h1>
   <div id="toolbar">
+    <button onclick="insertHeading(1)">H1</button>
+    <button onclick="insertHeading(2)">H2</button>
+    <button onclick="insertHeading(3)">H3</button>
     <button onclick="insertMarkup('bold')">Bold</button>
     <button onclick="insertMarkup('italic')">Italic</button>
     <button onclick="insertMarkup('bold-italic')">Bold/Italic</button>
@@ -52,6 +55,8 @@
     <button onclick="insertMarkup('unordered-list')">Unordered List</button>
     <button onclick="insertMarkup('ordered-list')">Ordered List</button>
     <button onclick="generateTable()">Table</button>
+    <button onclick="insertMarkup('link')">Link</button>
+    <button onclick="insertMarkup('image')">Image</button>
   </div>
   <div id="editor" contenteditable="true">Edit your content here...</div>
   <textarea id="output" placeholder="Wiki Text Markup"></textarea>
