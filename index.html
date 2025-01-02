@@ -7,18 +7,32 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Simple WYSIWYG Editor</h1>
-  <div id="editor" contenteditable="true">
-    Start typing here...
+  <div class="editor-container">
+    <h1>WYSIWYG Editor</h1>
+
+    <!-- Toolbar -->
+    <div id="toolbar">
+      <button onclick="execCmd('bold')">Bold</button>
+      <button onclick="execCmd('italic')">Italic</button>
+      <button onclick="execCmd('underline')">Underline</button>
+      <button onclick="execCmd('insertOrderedList')">Ordered List</button>
+      <button onclick="execCmd('insertUnorderedList')">Unordered List</button>
+      <button onclick="execCmd('createLink', prompt('Enter URL:', 'http://'))">Insert Link</button>
+      <button onclick="generateTable()">Insert Table</button>
+    </div>
+
+    <!-- Editor -->
+    <div id="editor" contenteditable="true">
+      Start editing here...
+    </div>
+
+    <!-- Code Output -->
+    <div class="output-container">
+      <h2>Generated Code</h2>
+      <textarea id="output" readonly></textarea>
+    </div>
   </div>
-  <div class="toolbar">
-    <button onclick="formatText('bold')">Bold</button>
-    <button onclick="formatText('italic')">Italic</button>
-    <button onclick="formatText('underline')">Underline</button>
-    <button onclick="formatText('strikeThrough')">Strike</button>
-    <button onclick="formatText('insertOrderedList')">Numbered List</button>
-    <button onclick="formatText('insertUnorderedList')">Bulleted List</button>
-  </div>
+
   <script src="script.js"></script>
 </body>
 </html>
