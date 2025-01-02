@@ -1,13 +1,67 @@
-<div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JW Hub Editor</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      line-height: 1.5;
+    }
+    h1 {
+      text-align: center;
+    }
+    #toolbar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    #toolbar button {
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+    #editor {
+      border: 1px solid #ccc;
+      padding: 10px;
+      min-height: 300px;
+      overflow-y: auto;
+    }
+    textarea {
+      width: 100%;
+      height: 200px;
+      margin-top: 10px;
+      font-family: monospace;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 3px;
+      padding: 5px 10px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
   <h1>JW Hub Editor</h1>
-  <div id="editor" contenteditable="true" style="border: 1px solid #ccc; padding: 10px; height: 300px; overflow-y: auto;">
-    <!-- Visual editor content -->
+  <div id="toolbar">
+    <button onclick="execCmd('bold')">Bold</button>
+    <button onclick="execCmd('italic')">Italic</button>
+    <button onclick="execCmd('underline')">Underline</button>
+    <button onclick="execCmd('insertOrderedList')">Ordered List</button>
+    <button onclick="execCmd('insertUnorderedList')">Unordered List</button>
+    <button onclick="generateTable()">Generate Table</button>
+  </div>
+  <div id="editor" contenteditable="true">
     <p>Edit your content here...</p>
   </div>
-  <textarea id="output" style="width: 100%; height: 200px; margin-top: 10px;" placeholder="Wiki Text Markup">
-    ||Column 1 ||Column 2 ||Column 3 ||
-    ||Row 1 Col 1 ||Row 1 Col 2 ||Row 1 Col 3 ||
-  </textarea>
-  <button onclick="generateTable()">Generate Table</button>
-</div>
-<script src="script.js"></script>
+  <textarea id="output" placeholder="Wiki Text Markup"></textarea>
+  <script src="script.js"></script>
+</body>
+</html>
