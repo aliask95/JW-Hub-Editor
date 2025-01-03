@@ -1,5 +1,4 @@
-<div class="jw-hub-editor-container">
-  <div id="editor"></div>
-  <textarea id="wiki-output" readonly></textarea>
-  <div id="preview-pane"></div>
-</div>
+<div id="myEditor"></div>
+document.addEventListener('DOMContentLoaded', () => {
+  const editor = new WikiEditor('myEditor');
+});
