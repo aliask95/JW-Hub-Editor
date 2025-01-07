@@ -1,4 +1,117 @@
-<div id="myEditor"></div>
-document.addEventListener('DOMContentLoaded', () => {
-  const editor = new WikiEditor('myEditor');
+// index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dual-View Editor</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="flex h-screen">
+  <div class="flex w-full h-full">
+    <div class="flex-1 border-r border-gray-300">
+      <div class="toolbar">
+        <button id="bold-btn" class="btn">Bold</button>
+        <button id="italic-btn" class="btn">Italic</button>
+        <button id="underline-btn" class="btn">Underline</button>
+        <button id="insert-table-btn" class="btn">Insert Table</button>
+      </div>
+      <div id="wysiwyg" class="wysiwyg-editor"></div>
+    </div>
+    <div id="code" class="code-editor"></div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.41.0/min/vs/loader.js"></script>
+  <script src="https://unpkg.com/@tiptap/core"></script>
+  <script src="https://unpkg.com/@tiptap/starter-kit"></script>
+  <script src="app.js"></script>
+</body>
+</html>
+
+// styles.css
+body {
+  font-family: Arial, sans-serif;
+}
+
+.toolbar {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  background-color: #f9f9f9;
+}
+
+.btn {
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+}
+
+.wysiwyg-editor, .code-editor {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  overflow: auto;
+}
+
+.wysiwyg-editor {
+  background-color: #fff;
+}
+
+.code-editor {
+  background-color: #2e2e2e;
+  color: white;
+}
+
+// app.js
+require.config({ paths: { vs: "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.41.0/min/vs" } });
+require(["vs/editor/editor.main"], function () {
+  const editorModel = {
+    content: "",
+  };
+
+  const wysiwygEditor = new window.tiptap.Editor({
+    element: document.querySelector("#wysiwyg"),
+    extensions: [window.tiptap.StarterKit],
+    content: editorModel.content,
+    onUpdate: ({ editor }) => {
+      editorModel.content = editor.getHTML();
+      monacoEditor.setValue(editorModel.content);
+    },
+  });
+
+  const monacoEditor = monaco.editor.create(document.querySelector("#code"), {
+    value: editorModel.content,
+    language: "html",
+    theme: "vs-dark",
+    automaticLayout: true,
+  });
+
+  monacoEditor.onDidChangeModelContent(() => {
+    editorModel.content = monacoEditor.getValue();
+    wysiwygEditor.commands.setContent(editorModel.content);
+  });
+
+  document.getElementById("bold-btn").addEventListener("click", () => {
+    wysiwygEditor.commands.toggleBold();
+  });
+
+  document.getElementById("italic-btn").addEventListener("click", () => {
+    wysiwygEditor.commands.toggleItalic();
+  });
+
+  document.getElementById("underline-btn").addEventListener("click", () => {
+    wysiwygEditor.commands.toggleUnderline();
+  });
+
+  document.getElementById("insert-table-btn").addEventListener("click", () => {
+    wysiwygEditor.commands.insertTable({ rows: 3, cols: 3 });
+  });
 });
