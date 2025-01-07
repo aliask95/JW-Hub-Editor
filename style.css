@@ -1,18 +1,41 @@
-.jw-editor-area {
-  border: 1px solid #ccc;
-  min-height: 200px;
+body {
+  font-family: Arial, sans-serif;
+}
+
+.toolbar {
+  display: flex;
+  gap: 10px;
   padding: 10px;
-  margin: 10px 0;
+  border-bottom: 1px solid #ccc;
+  background-color: #f9f9f9;
 }
 
-.jw-editor-toolbar button {
-  margin: 2px;
-  padding: 5px 10px;
+.btn {
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-#wiki-output {
-  width: 100%;
-  min-height: 150px;
-  margin: 10px 0;
+.btn:hover {
+  background-color: #0056b3;
+}
+
+.wysiwyg-editor, .code-editor {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  overflow: auto;
+}
+
+.wysiwyg-editor {
+  background-color: #fff;
+}
+
+.code-editor {
+  background-color: #2e2e2e;
+  color: white;
 }
